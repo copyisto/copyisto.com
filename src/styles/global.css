@@ -72,8 +72,10 @@
   --color-label-note: #9a3412;
   --color-label-tie: #0e7490;
 
-  /* The one gutter that drives every section's horizontal padding */
+  /* The one gutter that drives every section's horizontal padding, and the
+     widest the content between two gutters gets (see .gutter). */
   --gutter: clamp(20px, 5vw, 72px);
+  --content-width: 1280px;
 
   /* ------------------------------------------------------------- rhythm */
 
@@ -218,8 +220,12 @@ a:hover {
 /* Only the handful genuinely used across many components lives here.
    Everything else is scoped inside the component that owns it. */
 
+/* On every full-width block: the header, each section and the footers.
+   Past --content-width the padding grows instead of the content, so the
+   whole site shares one left and one right edge while backgrounds and
+   borders still run edge to edge. Sections set no max-width of their own. */
 .gutter {
-  padding-inline: var(--gutter);
+  padding-inline: max(var(--gutter), (100% - var(--content-width)) / 2);
 }
 
 .band {

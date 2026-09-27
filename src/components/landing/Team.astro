@@ -4,55 +4,48 @@ import { team, teamStatement } from '@/content/team';
 ---
 
 <section class="band team gutter" id="zespol">
-  <div class="team-shell">
-    <h2 class="display team-title">Zespół Copyisto</h2>
+  <h2 class="display team-title">Zespół Copyisto</h2>
 
-    <div class="team-grid">
-      {team.map((member) => (
-        <div class="team-member">
-          {member.photo ? (
-            <Image
-              class="team-avatar team-photo"
-              src={member.photo}
-              alt={`${member.name} - zdjęcie`}
-              widths={[160, 320, 480]}
-              sizes="160px"
-              quality={90}
-              loading="lazy"
-            />
-          ) : (
-            <div class="team-avatar" aria-hidden="true">
-              Placeholder
-              <br />
-              zdjęcie
-            </div>
-          )}
-          <div class="team-member-copy">
-            <h3 class="team-name">{member.name}</h3>
-            {member.url && (
-              <a class="team-link" href={member.url} target="_blank" rel="noopener">
-                {new URL(member.url).hostname} ↗
-              </a>
-            )}
-            <p class:list={['team-bio', member.emphasised && 'team-bio-quoted']}>{member.bio}</p>
+  <div class="team-grid">
+    {team.map((member) => (
+      <div class="team-member">
+        {member.photo ? (
+          <Image
+            class="team-avatar team-photo"
+            src={member.photo}
+            alt={`${member.name} - zdjęcie`}
+            widths={[160, 320, 480]}
+            sizes="160px"
+            quality={90}
+            loading="lazy"
+          />
+        ) : (
+          <div class="team-avatar" aria-hidden="true">
+            Placeholder
+            <br />
+            zdjęcie
           </div>
+        )}
+        <div class="team-member-copy">
+          <h3 class="team-name">{member.name}</h3>
+          {member.url && (
+            <a class="team-link" href={member.url} target="_blank" rel="noopener">
+              {new URL(member.url).hostname} ↗
+            </a>
+          )}
+          <p class:list={['team-bio', member.emphasised && 'team-bio-quoted']}>{member.bio}</p>
         </div>
-      ))}
-    </div>
-
-    <p class="team-statement">{teamStatement}</p>
+      </div>
+    ))}
   </div>
+
+  <p class="team-statement">{teamStatement}</p>
 </section>
 
 <style>
   .team {
     padding-block: var(--space-section);
     scroll-margin-top: 72px;
-  }
-
-  .team-shell {
-    max-width: 1080px;
-    margin-inline: auto;
   }
 
   .team-title {

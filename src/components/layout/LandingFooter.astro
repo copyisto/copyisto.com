@@ -5,9 +5,7 @@ import { site } from '@/content/site';
 ---
 
 <footer class="landing-footer gutter">
-  <div class="landing-footer-grid">
-    <Contact location="landing_footer" />
-  </div>
+  <Contact location="landing_footer" />
 
   <div class="landing-footer-bar">
     <FooterBar note={`${site.domain} · ${site.stage}`} />
@@ -20,13 +18,6 @@ import { site } from '@/content/site';
     padding-bottom: clamp(32px, 4vw, 48px);
     background: var(--color-dark);
     color: var(--color-dark-fg);
-  }
-
-  .landing-footer-grid,
-  .landing-footer-bar {
-    width: 100%;
-    max-width: 1080px;
-    margin-inline: auto;
   }
 
   .landing-footer-bar {
