@@ -71,6 +71,9 @@ Components reference them with `var(--…)` and never write literal values.
 
 `bun run lint` fails on a raw hex, an `rgb()` literal in a colour property, or a bare font stack anywhere outside `global.css`.
 
+The header, every section and both footers take the `.gutter` class instead of setting a max-width of their own.
+It pads them by `--gutter` and, once the content would grow past `--content-width`, widens the padding instead, so the whole site shares one left and one right edge.
+
 ## Forms
 
 Notebooks are collected in person in Wrocław for now, so the contribution page offers e-mail and direct messages instead of an upload.

@@ -7,24 +7,22 @@ import { howItWorks } from '@/content/landing';
 ---
 
 <section class="band how gutter" id="jak-to-dziala">
-  <div class="how-shell">
-    <Eyebrow class="how-eyebrow">{howItWorks.eyebrow}</Eyebrow>
-    <h2 class="display how-title">{howItWorks.title}</h2>
+  <Eyebrow class="how-eyebrow">{howItWorks.eyebrow}</Eyebrow>
+  <h2 class="display how-title">{howItWorks.title}</h2>
 
-    <div class="how-steps">
-      {howItWorks.steps.map((step) => (
-        <article class:list={['step', step.reversed && 'step-reversed', step.wide && 'step-wide']}>
-          <div class="step-copy">
-            <span class="ornament ornament-lg">{step.number}</span>
-            <h3 class="step-title">{step.title}</h3>
-            <p class="step-body">{step.body}</p>
-          </div>
-          <Frame label={step.frameLabel}>
-            {step.image ? <AnnotatedImage {...step.image} /> : <ScoreReveal />}
-          </Frame>
-        </article>
-      ))}
-    </div>
+  <div class="how-steps">
+    {howItWorks.steps.map((step) => (
+      <article class:list={['step', step.reversed && 'step-reversed', step.wide && 'step-wide']}>
+        <div class="step-copy">
+          <span class="ornament ornament-lg">{step.number}</span>
+          <h3 class="step-title">{step.title}</h3>
+          <p class="step-body">{step.body}</p>
+        </div>
+        <Frame label={step.frameLabel}>
+          {step.image ? <AnnotatedImage {...step.image} /> : <ScoreReveal />}
+        </Frame>
+      </article>
+    ))}
   </div>
 </section>
 
@@ -32,11 +30,6 @@ import { howItWorks } from '@/content/landing';
   .how {
     padding-block: var(--space-section);
     scroll-margin-top: 72px;
-  }
-
-  .how-shell {
-    max-width: 1280px;
-    margin-inline: auto;
   }
 
   /* :global because this class is handed to a child component, and a
