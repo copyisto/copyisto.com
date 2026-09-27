@@ -8,7 +8,7 @@
     "build": "stylelint \"src/**/*.{css,astro}\" && prettier --check . && astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "node --test worker/",
+    "test": "node --test 'worker/*.test.js'",
     "lint": "stylelint \"src/**/*.{css,astro}\" && prettier --check .",
     "lint:css": "stylelint \"src/**/*.{css,astro}\"",
     "format": "prettier --write ."
