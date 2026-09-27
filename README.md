@@ -76,10 +76,14 @@ Components reference them with `var(--…)` and never write literal values.
 Notebooks are collected in person in Wrocław for now, so the contribution page offers e-mail and direct messages instead of an upload.
 The Instagram and Messenger buttons open a chat with the accounts behind the `INSTAGRAM_URL` and `FACEBOOK_URL` build variables (see `.env.example`).
 Each button appears only when its variable is set.
-The upload form waits on the `feat/upload-form` branch.
+
+The upload form was taken out in `36e821a`.
+The `feat/upload-form` branch points at that commit's parent, `97ad607`, which is already part of `main`, so merging the branch changes nothing.
+To bring the form back, restore its files from `97ad607`; `git show --stat 36e821a` lists what was taken out.
 
 The newsletter waits on the `feat/newsletter` branch until its November launch.
-Merge that branch to bring the sign-up form back.
+Both waiting forms, the upload and the newsletter sign-up, submit to `pretendToSend()` in `src/lib/submissions.ts`, a stub that reports success without sending anything.
+Three things need solving before the newsletter goes live: `feat/newsletter` no longer merges cleanly into `main`, its form needs a real endpoint in place of the stub, and the privacy policy does not cover a newsletter yet.
 Until then the landing footer and the contribution page offer a "write to us" e-mail link instead.
 Every e-mail button uses the `EMAIL_ADDRESS` build variable, which defaults to `kontakt@copyisto.com`.
 
@@ -103,8 +107,11 @@ On top of that, any element tagged `data-track="event_name"` sends that named ev
 The tagged events are `form_cta_clicked`, `email_clicked`, `dm_clicked` and `social_clicked`, each with a `location`, `channel` or `network`.
 
 The site has no adapter yet.
-The upload endpoint will need one, for example `@astrojs/cloudflare`, with the route at `src/pages/api/` opting out of prerendering via `export const prerender = false` while the pages stay static.
-Uploads accept files up to 20 MB, which exceeds a serverless request body limit, so the real implementation should issue a signed URL and let the browser upload directly to storage.
+The upload endpoint has two open choices.
+It can be an Astro route or a route in `worker/index.js`, which already runs in front of every page.
+An Astro route needs an adapter such as `@astrojs/cloudflare`, with the route at `src/pages/api/` opting out of prerendering via `export const prerender = false` while the pages stay static.
+The files can go through that endpoint, or straight from the browser to storage with a signed URL that the endpoint issues.
+The upload form promises up to 20 MB per file, and a Worker accepts request bodies up to 100 MB on [Cloudflare's Free and Pro plans](https://developers.cloudflare.com/workers/platform/limits/), so going through the endpoint works as long as files go up one per request.
 
 ### Page views without consent
 
@@ -129,8 +136,10 @@ The columns are `blob1` path, `blob2` source, `blob3` medium, `blob4` campaign, 
 
 ## Known gaps
 
-- Team bios and two profile photos are placeholders in `src/content/team.ts`.
+- Oleś's bio in `src/content/team.ts` is still a placeholder.
 - `/regulamin` redirects to the privacy policy through `public/_redirects`; `astro dev` ignores that file, so check redirects with `wrangler dev`.
+- There is no `og:image`, canonical URL, sitemap or `robots.txt`.
+- "Przez najbliższy miesiąc" in `src/content/landing.ts` and `src/content/formularz.ts` needs updating when the collection ends or changes.
 
 ## Deployment
 
