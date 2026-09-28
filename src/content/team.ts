@@ -26,8 +26,10 @@ export const team: TeamMember[] = [
   },
   {
     name: 'Oleś',
-    bio: 'UZUPEŁNIJ OPIS OLEŚ',
-    emphasised: true,
+    bio:
+      'Pierwszą aplikację do sprawdzania zadań z harmonii napisał jako pracę inżynierską z informatyki na Uniwersytecie Wrocławskim. ' +
+      'Programuje zawodowo od 2017 roku w software house’ach i startupach – od interfejsu po chmurę. ' +
+      'Studiuje kompozycję w Akademii Muzycznej we Wrocławiu i sam wykonuje swoje utwory – przy fortepianie i z elektroniką na żywo.',
     photo: olesPhoto,
     url: 'https://kulczewicz.com',
   },

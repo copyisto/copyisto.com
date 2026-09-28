@@ -33,7 +33,7 @@ import { team, teamStatement } from '@/content/team';
               {new URL(member.url).hostname} ↗
             </a>
           )}
-          <p class:list={['team-bio', member.emphasised && 'team-bio-quoted']}>{member.bio}</p>
+          <p class="team-bio">{member.bio}</p>
         </div>
       </div>
     ))}
@@ -117,13 +117,6 @@ import { team, teamStatement } from '@/content/team';
     font-size: var(--text-body);
     line-height: 1.62;
     text-wrap: pretty;
-  }
-
-  .team-bio-quoted {
-    padding-left: 12px;
-    border-left: 2px solid var(--color-rust);
-    color: var(--color-muted);
-    font-style: italic;
   }
 
   .team-statement {
