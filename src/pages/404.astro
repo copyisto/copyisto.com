@@ -4,8 +4,11 @@ import PageHeader from '@/components/layout/PageHeader.astro';
 import PageFooter from '@/components/layout/PageFooter.astro';
 import Eyebrow from '@/components/primitives/Eyebrow.astro';
 import Button from '@/components/primitives/Button.astro';
-import { cta, notFound, site } from '@/content/site';
-import { routes } from '@/lib/routes';
+import { copyFor } from '@/content';
+import { routesFor } from '@/lib/routes';
+
+const { cta, notFound, site } = copyFor(Astro.currentLocale);
+const routes = routesFor(Astro.currentLocale);
 ---
 
 <Base title={notFound.title}>

@@ -1,11 +1,11 @@
 ---
 import Button from '@/components/primitives/Button.astro';
 import Eyebrow from '@/components/primitives/Eyebrow.astro';
-import { collection } from '@/content/formularz';
+import { copyFor } from '@/content';
 import { icons } from '@/lib/icons';
 import { mailto, social } from '@/lib/routes';
 
-const { local, remote } = collection;
+const { local, remote } = copyFor(Astro.currentLocale).collection;
 
 // Direct-message channels show only once their username is set.
 const channels = [

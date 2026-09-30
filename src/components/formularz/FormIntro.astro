@@ -1,6 +1,8 @@
 ---
 import Eyebrow from '@/components/primitives/Eyebrow.astro';
-import { formIntro } from '@/content/formularz';
+import { copyFor } from '@/content';
+
+const { formIntro } = copyFor(Astro.currentLocale);
 ---
 
 <div class="intro">
@@ -35,6 +37,14 @@ import { formIntro } from '@/content/formularz';
     margin-bottom: 22px;
   }
 
+  /* Wrocław is the first thing to read: the collection is in person only. */
+  .intro :global(.intro-eyebrow .eyebrow-label) {
+    font-family: var(--font-script);
+    font-size: clamp(24px, 2.4vw, 34px);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
   .intro-title {
     margin: 0 0 22px;
     font-family: var(--font-serif);
@@ -45,9 +55,11 @@ import { formIntro } from '@/content/formularz';
     text-wrap: pretty;
   }
 
+  /* Kept on one line: the script phrase reads as one word. */
   .intro-title-script {
     font-family: var(--font-script);
     font-style: italic;
+    white-space: nowrap;
   }
 
   .intro-body {

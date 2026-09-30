@@ -1,6 +1,6 @@
 export const formIntro = {
   eyebrow: 'Zbiórka we Wrocławiu',
-  titleLead: 'Podaruj swojemu zeszytowi z harmonii',
+  titleLead: 'Podaruj swojemu zeszytowi z\u00a0harmonii',
   titleScript: 'drugie życie',
   body:
     'Przez najbliższy miesiąc zbieramy zeszyty osobiście we Wrocławiu. Zadania z harmonii, ćwiczenia z ' +
@@ -19,7 +19,7 @@ export const formIntro = {
     {
       number: '03',
       title: 'Dostajesz wczesny dostęp',
-      body: 'Bezpłatnie przez 12 miesięcy od uruchomienia narzędzia.',
+      body: 'Bezpłatnie – do 12 miesięcy i więcej od uruchomienia narzędzia!',
     },
   ],
 } as const;

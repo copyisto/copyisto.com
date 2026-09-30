@@ -1,5 +1,7 @@
 ---
-import { problem } from '@/content/landing';
+import { copyFor } from '@/content';
+
+const { problem } = copyFor(Astro.currentLocale);
 ---
 
 <div class="perforation" aria-hidden="true"></div>

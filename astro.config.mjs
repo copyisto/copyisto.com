@@ -10,6 +10,12 @@ export default defineConfig({
   // /formularz as is instead of redirecting every link to /formularz/.
   build: { format: 'file' },
   trailingSlash: 'never',
+  // Polish at the root, English under /en; components read Astro.currentLocale.
+  i18n: {
+    locales: ['pl', 'en'],
+    defaultLocale: 'pl',
+    routing: { prefixDefaultLocale: false },
+  },
   env: {
     schema: {
       // Public contact address behind every "write to us" button and the legal text.
