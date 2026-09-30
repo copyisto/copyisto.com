@@ -1,0 +1,41 @@
+---
+import { copyFor } from '@/content';
+import { counterpart } from '@/lib/routes';
+
+/** A link to this page in the other language, named in that language. */
+const { languageSwitch } = copyFor(Astro.currentLocale);
+const target = counterpart(Astro.url.pathname, Astro.currentLocale);
+---
+
+<a
+  href={target.href}
+  class="lang-switch"
+  hreflang={target.locale}
+  lang={target.locale}
+  aria-label={languageSwitch.title}
+  title={languageSwitch.title}
+  data-track="language_switched"
+  data-track-to={target.locale}
+>
+  {languageSwitch.label}
+</a>
+
+<style>
+  .lang-switch {
+    padding: 4px 7px;
+    border: 1px solid var(--color-rule-30);
+    border-radius: 2px;
+    color: var(--color-ink-soft);
+    font-size: var(--text-fine);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  .lang-switch:hover {
+    border-color: var(--color-rust);
+    color: var(--color-rust);
+    text-decoration: none;
+  }
+</style>

@@ -1,10 +1,14 @@
 ---
 import Eyebrow from '@/components/primitives/Eyebrow.astro';
 import HelpCta from './HelpCta.astro';
-import { why } from '@/content/landing';
+import { copyFor } from '@/content';
+import { routesFor } from '@/lib/routes';
+
+const { why } = copyFor(Astro.currentLocale);
+const { ids } = routesFor(Astro.currentLocale);
 ---
 
-<section class="why gutter" id="dlaczego">
+<section class="why gutter" id={ids.why}>
   <div class="why-shell">
     <div class="why-copy">
       <Eyebrow class="why-eyebrow">{why.eyebrow}</Eyebrow>

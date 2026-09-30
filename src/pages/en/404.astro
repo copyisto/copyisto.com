@@ -1,0 +1,7 @@
+---
+// The same page as the Polish one: every component reads Astro.currentLocale.
+// Cloudflare serves the nearest 404.html, so every missing /en/… page gets this one.
+import Page from '../404.astro';
+---
+
+<Page />

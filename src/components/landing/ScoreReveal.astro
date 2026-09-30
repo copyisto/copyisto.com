@@ -2,14 +2,14 @@
 import engraved from '@/assets/engraved.svg?raw';
 import { labelmeBoxes } from '@/lib/labelme';
 import { scoreReveal } from '@/lib/score-svg';
-import { howItWorks } from '@/content/landing';
+import { copyFor } from '@/content';
 
 /**
  * Step three: the engraving writes itself out symbol by symbol, as if read
  * off the page, then the harmony check marks its mistakes. The SVG is
  * inlined so each symbol can be animated on its own.
  */
-const { score } = howItWorks;
+const { score } = copyFor(Astro.currentLocale).howItWorks;
 const { svg, columns } = scoreReveal(engraved);
 const mistakes = labelmeBoxes(score.mistakes);
 

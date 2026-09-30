@@ -1,7 +1,9 @@
 ---
 import Contact from '@/components/landing/Contact.astro';
 import FooterBar from './FooterBar.astro';
-import { site } from '@/content/site';
+import { copyFor } from '@/content';
+
+const { site } = copyFor(Astro.currentLocale);
 ---
 
 <footer class="landing-footer gutter">

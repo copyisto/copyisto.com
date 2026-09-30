@@ -3,16 +3,16 @@ import Base from '@/layouts/Base.astro';
 import Button from '@/components/primitives/Button.astro';
 import PageHeader from '@/components/layout/PageHeader.astro';
 import PageFooter from '@/components/layout/PageFooter.astro';
-import { cta, site } from '@/content/site';
-import { routes } from '@/lib/routes';
+import { copyFor } from '@/content';
+import { routesFor } from '@/lib/routes';
 // The policy lives as Markdown so the text stays exactly as the lawyer wrote it.
 import { Content } from '../../docs/polityka-prywatnosci.md';
+
+const { cta, privacyPage, site } = copyFor(Astro.currentLocale);
+const routes = routesFor(Astro.currentLocale);
 ---
 
-<Base
-  title="Polityka prywatności"
-  description="Jak Copyisto przetwarza dane osobowe i korzysta z plików cookies."
->
+<Base title={privacyPage.title} description={privacyPage.description}>
   <div class="page">
     <PageHeader logoHref={routes.home}>
       <Button

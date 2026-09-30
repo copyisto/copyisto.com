@@ -35,6 +35,12 @@ export const team: TeamMember[] = [
   },
 ];
 
+export const teamCopy = {
+  title: 'Zespół Copyisto',
+  /** Follows the member's name in the portrait's alt text. */
+  photo: 'zdjęcie',
+} as const;
+
 export const teamStatement =
   'Jesteśmy dwójką inżynierów i muzyków, którzy postanowili rozwiązać problem, ' +
   'o który od lat potykają się największe komercyjne programy muzyczne.';

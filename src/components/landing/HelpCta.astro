@@ -1,8 +1,10 @@
 ---
 import Button from '@/components/primitives/Button.astro';
-import { closingCta } from '@/content/landing';
-import { cta } from '@/content/site';
-import { anchors, mailto } from '@/lib/routes';
+import { copyFor } from '@/content';
+import { mailto, routesFor } from '@/lib/routes';
+
+const { closingCta, cta } = copyFor(Astro.currentLocale);
+const { anchors } = routesFor(Astro.currentLocale);
 ---
 
 <div class="help" id="zapis">

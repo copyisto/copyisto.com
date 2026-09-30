@@ -2,19 +2,23 @@
 import Button from '@/components/primitives/Button.astro';
 import Logo from './Logo.astro';
 import MobileNav from './MobileNav.astro';
-import { cta, primaryNav } from '@/content/site';
-import { routes } from '@/lib/routes';
+import LanguageSwitch from './LanguageSwitch.astro';
+import { copyFor } from '@/content';
+import { routesFor } from '@/lib/routes';
+
+const { cta, nav, primaryNav } = copyFor(Astro.currentLocale);
+const routes = routesFor(Astro.currentLocale);
 ---
 
 <header class="landing-header gutter">
   <Logo href={routes.home} collapsible />
-  <nav class="landing-nav" aria-label="Główna">
+  <nav class="landing-nav" aria-label={nav.label}>
     <div class="landing-nav-links">
       {primaryNav.map((item) =>
         item.soon ? (
           <span class="nav-soon">
             {item.label}
-            <span class="nav-soon-badge">Wkrótce</span>
+            <span class="nav-soon-badge">{nav.soon}</span>
           </span>
         ) : (
           <a href={item.href} class="nav-link">
@@ -23,6 +27,7 @@ import { routes } from '@/lib/routes';
         ),
       )}
     </div>
+    <LanguageSwitch />
     <Button
       href={cta.formHref}
       variant="solid"

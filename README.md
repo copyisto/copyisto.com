@@ -3,6 +3,7 @@
 Marketing site for Copyisto, a tool that reads handwritten music notation and checks four-part harmony exercises for errors.
 
 Three static pages in Polish: the landing page, a page for contributing notebooks, and the privacy policy.
+The first two, and the 404 page, also exist in English under `/en`.
 
 Built with [Astro](https://astro.build). No client framework.
 
@@ -47,7 +48,7 @@ src/
 ├─ pages/          one file per route
 ├─ layouts/        Base.astro: head, metadata, icons
 ├─ components/     one file per component: markup, styles and script
-├─ content/        all copy, typed
+├─ content/        all copy, typed: Polish at the top, English in en/
 ├─ lib/            routes, icons, cookie consent and analytics
 ├─ styles/         global.css: design tokens, reset, shared classes
 └─ assets/         illustrations inlined at build
@@ -57,6 +58,31 @@ worker/            the Worker in front of the static site: counts page views
 
 Every component is a single `.astro` file.
 Its styles live in a scoped `<style>` block and are extracted into a real stylesheet at build.
+
+## Languages
+
+Polish lives at the root and English under `/en`, set up with Astro's `i18n` config in `astro.config.mjs`.
+
+| Polish                  | English          |
+| ----------------------- | ---------------- |
+| `/`                     | `/en`            |
+| `/formularz`            | `/en/contribute` |
+| `/polityka-prywatnosci` | none             |
+
+Each page in `src/pages/en/` renders its Polish counterpart, and every component picks its copy with `copyFor(Astro.currentLocale)` from `src/content/index.ts`.
+The English copy in `src/content/en/` must match the Polish copy key for key, or `astro check` fails.
+Section ids that other pages link to are translated too, in `src/lib/routes.ts`.
+
+The privacy policy is Polish only, because it is a lawyer's text.
+English pages link to it as "Privacy policy (in Polish)".
+It needs an English version from the lawyer before the English site can be called complete.
+
+A small switch in every header links to the same page in the other language, or to its home page when there is no translation.
+Pages with a translation carry `hreflang` alternates.
+
+The Worker sends a visitor to English when their browser's `Accept-Language` names no Polish at all.
+It redirects only `/` and `/formularz` (the `ENGLISH` map in `worker/index.js`, which mirrors `routes.ts`), only visitors arriving from outside the site, and never bots or requests without the header.
+It sets no cookie, so a visitor who switches back to Polish keeps Polish while they browse, and is sent to English again on their next visit from outside.
 
 ## Score assets
 
@@ -107,7 +133,7 @@ Once running, PostHog autocaptures clicks and pageviews and records sessions wit
 It also reads `utm_*` parameters from the landing URL, so tag shared links like `https://copyisto.com/?utm_source=facebook&utm_medium=social&utm_campaign=post-2026-09-30`.
 The query string is removed from the address bar once it has been read: after the first `$pageview` with consent, straight away without it.
 On top of that, any element tagged `data-track="event_name"` sends that named event on click, with every other `data-track-*` attribute as a property.
-The tagged events are `form_cta_clicked`, `email_clicked`, `dm_clicked` and `social_clicked`, each with a `location`, `channel` or `network`.
+The tagged events are `form_cta_clicked`, `email_clicked`, `dm_clicked` and `social_clicked`, each with a `location`, `channel` or `network`, and `language_switched` with the language it switched `to`.
 
 The site has no adapter yet.
 The upload endpoint has two open choices.
@@ -122,6 +148,7 @@ The upload form promises up to 20 MB per file, and a Worker accepts request bodi
 It writes one data point per page view to the `copyisto_visits` Workers Analytics Engine dataset, then serves the page unchanged.
 It records the path, the `utm_source`, `utm_medium`, `utm_campaign` and `utm_content` parameters, the referring site, the country and the status code.
 It stores no IP address, sets no cookie, runs nothing in the browser and skips link-preview bots such as `facebookexternalhit`.
+A redirect to English (see Languages) is not counted; the English page it leads to is, with the original referrer.
 
 Query the counts with the SQL API, using an API token with the Account Analytics read permission:
 
@@ -139,10 +166,11 @@ The columns are `blob1` path, `blob2` source, `blob3` medium, `blob4` campaign, 
 
 ## Known gaps
 
-- Oleś's bio in `src/content/team.ts` is still a placeholder.
+- Oleś's bio in `src/content/team.ts` and `src/content/en/team.ts` is still a placeholder.
 - `/regulamin` redirects to the privacy policy through `public/_redirects`; `astro dev` ignores that file, so check redirects with `wrangler dev`.
 - There is no `og:image`, canonical URL, sitemap or `robots.txt`.
-- "Przez najbliższy miesiąc" in `src/content/landing.ts` and `src/content/formularz.ts` needs updating when the collection ends or changes.
+- "Przez najbliższy miesiąc" in `src/content/landing.ts` and `src/content/formularz.ts`, and "For the next month" in their English copies, need updating when the collection ends or changes.
+- The privacy policy has no English version (see Languages).
 
 ## Deployment
 

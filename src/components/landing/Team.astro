@@ -1,10 +1,14 @@
 ---
 import { Image } from 'astro:assets';
-import { team, teamStatement } from '@/content/team';
+import { copyFor } from '@/content';
+import { routesFor } from '@/lib/routes';
+
+const { team, teamCopy, teamStatement } = copyFor(Astro.currentLocale);
+const { ids } = routesFor(Astro.currentLocale);
 ---
 
-<section class="band team gutter" id="zespol">
-  <h2 class="display team-title">Zespół Copyisto</h2>
+<section class="band team gutter" id={ids.team}>
+  <h2 class="display team-title">{teamCopy.title}</h2>
 
   <div class="team-grid">
     {team.map((member) => (
@@ -13,7 +17,7 @@ import { team, teamStatement } from '@/content/team';
           <Image
             class="team-avatar team-photo"
             src={member.photo}
-            alt={`${member.name} - zdjęcie`}
+            alt={`${member.name} - ${teamCopy.photo}`}
             widths={[160, 320, 480]}
             sizes="160px"
             quality={90}
