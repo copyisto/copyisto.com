@@ -11,7 +11,13 @@ export const team: TeamMember[] = [
       'A software engineer at DIVEINAI since 2019, responsible for the architecture and upkeep of its production platform. ' +
       'Builds technology for live music, including Agogica.app, which keeps musicians in sync during a concert.',
   },
-  { ...oles, bio: 'FILL IN OLEŚ’S BIO' },
+  {
+    ...oles,
+    bio:
+      'Wrote a first app for checking harmony exercises as a computer science engineering thesis at the University of Wrocław. ' +
+      'A professional programmer since 2017, at software houses and start-ups, from the interface to the cloud. ' +
+      'Studies composition at the Academy of Music in Wrocław and performs original works at the piano and with live electronics.',
+  },
 ];
 
 export const teamCopy = {

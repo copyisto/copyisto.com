@@ -166,7 +166,6 @@ The columns are `blob1` path, `blob2` source, `blob3` medium, `blob4` campaign, 
 
 ## Known gaps
 
-- Oleś's bio in `src/content/team.ts` and `src/content/en/team.ts` is still a placeholder.
 - `/regulamin` redirects to the privacy policy through `public/_redirects`; `astro dev` ignores that file, so check redirects with `wrangler dev`.
 - There is no `og:image`, canonical URL, sitemap or `robots.txt`.
 - "Przez najbliższy miesiąc" in `src/content/landing.ts` and `src/content/formularz.ts`, and "For the next month" in their English copies, need updating when the collection ends or changes.
