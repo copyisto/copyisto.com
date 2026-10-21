@@ -1,8 +1,9 @@
 ---
 import Button from '@/components/primitives/Button.astro';
 import Eyebrow from '@/components/primitives/Eyebrow.astro';
-import { hero } from '@/content/landing';
-import { cta } from '@/content/site';
+import { copyFor } from '@/content';
+
+const { hero, cta } = copyFor(Astro.currentLocale);
 ---
 
 <section class="hero gutter" id="top">

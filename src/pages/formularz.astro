@@ -5,18 +5,18 @@ import PageFooter from '@/components/layout/PageFooter.astro';
 import FormIntro from '@/components/formularz/FormIntro.astro';
 import Collection from '@/components/formularz/Collection.astro';
 import CreditsInfo from '@/components/formularz/CreditsInfo.astro';
-import { site } from '@/content/site';
-import { routes } from '@/lib/routes';
+import { copyFor } from '@/content';
+import { routesFor } from '@/lib/routes';
+
+const { formPage, site } = copyFor(Astro.currentLocale);
+const routes = routesFor(Astro.currentLocale);
 ---
 
-<Base
-  title="Przekaż materiały"
-  description="Zbieramy zeszyty z harmonii we Wrocławiu. Przekaż swój, pomóż wytrenować model i zyskaj bezpłatny wczesny dostęp."
->
+<Base title={formPage.title} description={formPage.description}>
   <div class="page">
     <PageHeader logoHref={routes.home}>
       <a href={routes.home} class="header-back">
-        ← Wróć na stronę główną
+        {formPage.back}
       </a>
     </PageHeader>
 

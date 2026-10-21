@@ -1,7 +1,8 @@
 ---
 import '../styles/global.css';
 import ConsentBanner from '@/components/ConsentBanner.astro';
-import { site } from '@/content/site';
+import { copyFor } from '@/content';
+import { counterpart, localeOf } from '@/lib/routes';
 
 interface Props {
   /** Page title; the site name is appended unless this is the home page. */
@@ -9,14 +10,18 @@ interface Props {
   description?: string;
 }
 
+const { site } = copyFor(Astro.currentLocale);
 const { title, description = site.tagline } = Astro.props;
-const fullTitle = title
-  ? `${title} - ${site.name}`
-  : `${site.name} - cyfrowy skryba dla zapisu nutowego`;
+const fullTitle = title ? `${title} - ${site.name}` : `${site.name} - ${site.homeTitle}`;
+
+const locale = localeOf(Astro.currentLocale);
+const { alternates } = counterpart(Astro.url.pathname, Astro.currentLocale);
+// Tell search engines about the translation only when this page has one.
+const href = (path: string) => new URL(path, Astro.site).href;
 ---
 
 <!doctype html>
-<html lang="pl">
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,9 +30,16 @@ const fullTitle = title
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/icon.svg" sizes="any" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-icon.png" sizes="180x180" />
+    {alternates && (
+      <>
+        <link rel="alternate" hreflang="pl" href={href(alternates.pl)} />
+        <link rel="alternate" hreflang="en" href={href(alternates.en)} />
+        <link rel="alternate" hreflang="x-default" href={href(alternates.pl)} />
+      </>
+    )}
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:locale" content={site.ogLocale} />
     <meta property="og:type" content="website" />
   </head>
   <body>

@@ -1,5 +1,7 @@
 ---
-import { primaryNav } from '@/content/site';
+import { copyFor } from '@/content';
+
+const { nav, primaryNav } = copyFor(Astro.currentLocale);
 
 /**
  * Navigation for viewports below the design's 1090px cut-off.
@@ -14,7 +16,9 @@ import { primaryNav } from '@/content/site';
     type="button"
     class="nav-toggle"
     aria-expanded="false"
-    aria-label="Otwórz menu"
+    aria-label={nav.openMenu}
+    data-label-open={nav.openMenu}
+    data-label-close={nav.closeMenu}
     data-drawer-toggle
   >
     <span class="nav-toggle-icon" aria-hidden="true">
@@ -30,7 +34,7 @@ import { primaryNav } from '@/content/site';
     class="nav-drawer"
     role="dialog"
     aria-modal="true"
-    aria-label="Menu"
+    aria-label={nav.menu}
     data-drawer-panel
     hidden
   >
@@ -39,7 +43,7 @@ import { primaryNav } from '@/content/site';
         item.soon ? (
           <span class="nav-drawer-soon">
             {item.label}
-            <span class="nav-soon-badge">Wkrótce</span>
+            <span class="nav-soon-badge">{nav.soon}</span>
           </span>
         ) : (
           <a href={item.href} class="nav-drawer-link" data-drawer-link>
@@ -69,7 +73,10 @@ import { primaryNav } from '@/content/site';
       scrim.hidden = !open;
       icon.classList.toggle('is-open', open);
       toggle.setAttribute('aria-expanded', String(open));
-      toggle.setAttribute('aria-label', open ? 'Zamknij menu' : 'Otwórz menu');
+      toggle.setAttribute(
+        'aria-label',
+        (open ? toggle.dataset.labelClose : toggle.dataset.labelOpen) ?? '',
+      );
       document.body.style.overflow = open ? 'hidden' : '';
       if (open) focusable()[0]?.focus();
     };

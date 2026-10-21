@@ -1,5 +1,5 @@
 ---
-import { footerNav, site } from '@/content/site';
+import { copyFor } from '@/content';
 import { icons } from '@/lib/icons';
 import { profiles } from '@/lib/routes';
 
@@ -7,6 +7,7 @@ interface Props {
   note: string;
 }
 const { note } = Astro.props;
+const { footerNav, site } = copyFor(Astro.currentLocale);
 
 // Each profile shows only once its URL is set.
 const socials = [

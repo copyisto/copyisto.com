@@ -10,7 +10,7 @@ export const hero = {
   subtitle: 'który naprawdę rozumie Twój charakter pisma muzycznego',
   lead: 'Odczytujemy odręczne zadania z harmonii i automatycznie sprawdzamy je pod kątem błędów.',
   eyebrow: 'By musicians for musicians',
-  ctaNote: 'Pomóż nam trenować model i zyskaj bezpłatny dostęp na 12 miesięcy.',
+  ctaNote: 'Pomóż nam trenować model i zyskaj bezpłatny dostęp – do 12 miesięcy i więcej!',
   illustrationAlt:
     'Uczennica zapisuje nuty ołówkiem, obok laptop z cyfrową transkrypcją i zaznaczonym błędem',
 } as const;
@@ -135,5 +135,5 @@ export const closingCta = {
     'Za przekazane materiały zbierasz kredyty do wykorzystania w narzędziu. Im więcej przekażesz, tym więcej ich masz.',
   creditsLink: 'Jak to działa',
   emailCta: 'Napisz e-mail',
-  note: 'Przez najbliższy miesiąc zbieramy zeszyty we Wrocławiu. W zamian bezpłatny wczesny dostęp na 12 miesięcy od uruchomienia narzędzia.',
+  note: 'Przez najbliższy miesiąc zbieramy zeszyty we Wrocławiu. W zamian bezpłatny wczesny dostęp – do 12 miesięcy i więcej od uruchomienia narzędzia!',
 } as const;

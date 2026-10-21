@@ -3,10 +3,14 @@ import Eyebrow from '@/components/primitives/Eyebrow.astro';
 import AnnotatedImage from '@/components/primitives/AnnotatedImage.astro';
 import Frame from '@/components/primitives/Frame.astro';
 import ScoreReveal from './ScoreReveal.astro';
-import { howItWorks } from '@/content/landing';
+import { copyFor } from '@/content';
+import { routesFor } from '@/lib/routes';
+
+const { howItWorks } = copyFor(Astro.currentLocale);
+const { ids } = routesFor(Astro.currentLocale);
 ---
 
-<section class="band how gutter" id="jak-to-dziala">
+<section class="band how gutter" id={ids.howItWorks}>
   <Eyebrow class="how-eyebrow">{howItWorks.eyebrow}</Eyebrow>
   <h2 class="display how-title">{howItWorks.title}</h2>
 

@@ -1,19 +1,63 @@
 import { EMAIL_ADDRESS, FACEBOOK_URL, INSTAGRAM_URL, TWITTER_URL } from 'astro:env/client';
 
+/** Polish is the default and lives at the root; English lives under /en. */
+export type Locale = 'pl' | 'en';
+
+/** `Astro.currentLocale` is undefined outside a page render, which means Polish. */
+export const localeOf = (current: string | undefined): Locale => (current === 'en' ? 'en' : 'pl');
+
 /** Every internal destination in one place, so a route rename is a one-line change. */
-export const routes = {
-  home: '/',
-  form: '/formularz',
-  privacy: '/polityka-prywatnosci',
+const pages = {
+  pl: { home: '/', form: '/formularz', privacy: '/polityka-prywatnosci' },
+  // ponytail: the privacy policy is a lawyer's Polish text with no English version yet.
+  en: { home: '/en', form: '/en/contribute', privacy: '/polityka-prywatnosci' },
 } as const;
 
-/** Anchors that are linked to from more than one page. */
-export const anchors = {
-  howItWorks: `${routes.home}#jak-to-dziala`,
-  why: `${routes.home}#dlaczego`,
-  team: `${routes.home}#zespol`,
-  credits: `${routes.form}#kredyty`,
+/** Section ids that are linked to from more than one page, in each language's words. */
+const sections = {
+  pl: { howItWorks: 'jak-to-dziala', why: 'dlaczego', team: 'zespol', credits: 'kredyty' },
+  en: { howItWorks: 'how-it-works', why: 'why-harmony', team: 'team', credits: 'credits' },
 } as const;
+
+const localised = (locale: Locale) => {
+  const page = pages[locale];
+  const ids = sections[locale];
+  return {
+    ...page,
+    ids,
+    anchors: {
+      howItWorks: `${page.home}#${ids.howItWorks}`,
+      why: `${page.home}#${ids.why}`,
+      team: `${page.home}#${ids.team}`,
+      credits: `${page.form}#${ids.credits}`,
+    },
+  };
+};
+
+export const routes = { pl: localised('pl'), en: localised('en') };
+
+export const routesFor = (current: string | undefined) => routes[localeOf(current)];
+
+/**
+ * The same page in the other language, for the language switch and hreflang.
+ * A page without a translation (the privacy policy, a 404) falls back to the
+ * other language's home page, and `alternates` is undefined.
+ */
+export function counterpart(pathname: string, current: string | undefined) {
+  const locale = localeOf(current);
+  const other: Locale = locale === 'pl' ? 'en' : 'pl';
+  // A static build renders /formularz as /formularz.html and / as /index.html.
+  const path = pathname.replace(/\.html$/, '').replace(/\/(index)?$/, '') || '/';
+  const key = (Object.keys(pages[locale]) as (keyof (typeof pages)['pl'])[]).find(
+    (k) => pages[locale][k] === path && pages[other][k] !== path,
+  );
+  return {
+    locale: other,
+    href: pages[other][key ?? 'home'],
+    /** Both URLs, when this page has a translation. */
+    alternates: key && { [locale]: pages[locale][key], [other]: pages[other][key] },
+  };
+}
 
 export const CONTACT_EMAIL = EMAIL_ADDRESS;
 export const mailto = `mailto:${CONTACT_EMAIL}`;

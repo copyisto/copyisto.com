@@ -1,9 +1,13 @@
 ---
 import Eyebrow from '@/components/primitives/Eyebrow.astro';
-import { credits } from '@/content/formularz';
+import { copyFor } from '@/content';
+import { routesFor } from '@/lib/routes';
+
+const { credits, nav } = copyFor(Astro.currentLocale);
+const { ids } = routesFor(Astro.currentLocale);
 ---
 
-<section class="credits-info gutter" id="kredyty">
+<section class="credits-info gutter" id={ids.credits}>
   <div class="credits-card">
     <div class="credits-intro">
       <Eyebrow class="credits-info-eyebrow">{credits.eyebrow}</Eyebrow>
@@ -17,7 +21,7 @@ import { credits } from '@/content/formularz';
           <span class="ornament ornament-xs credits-point-num">{point.number}</span>
           <p class="credits-point-body">
             {point.body}
-            {'soon' in point && <span class="nav-soon-badge credits-soon">Wkrótce</span>}
+            {'soon' in point && <span class="nav-soon-badge credits-soon">{nav.soon}</span>}
           </p>
         </li>
       ))}

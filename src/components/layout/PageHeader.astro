@@ -1,5 +1,6 @@
 ---
 import Logo from './Logo.astro';
+import LanguageSwitch from './LanguageSwitch.astro';
 
 interface Props {
   logoHref: string;
@@ -8,8 +9,11 @@ const { logoHref } = Astro.props;
 ---
 
 <header class="page-header gutter">
-  <Logo href={logoHref} />
-  <slot />
+  <Logo href={logoHref} collapsible />
+  <div class="page-header-actions">
+    <LanguageSwitch />
+    <slot />
+  </div>
 </header>
 
 <style>
@@ -20,5 +24,11 @@ const { logoHref } = Astro.props;
     gap: var(--gap-2xl);
     padding-block: 16px;
     border-bottom: 1px solid var(--color-rule);
+  }
+
+  .page-header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-2xl);
   }
 </style>

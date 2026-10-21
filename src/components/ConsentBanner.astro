@@ -1,6 +1,10 @@
 ---
 import Button from '@/components/primitives/Button.astro';
-import { routes } from '@/lib/routes';
+import { copyFor } from '@/content';
+import { routesFor } from '@/lib/routes';
+
+const { consent } = copyFor(Astro.currentLocale);
+const routes = routesFor(Astro.currentLocale);
 ---
 
 <!--
@@ -9,23 +13,22 @@ import { routes } from '@/lib/routes';
 -->
 <section class="consent" role="dialog" aria-labelledby="consent-title" data-consent hidden>
   <h2 class="consent-title" id="consent-title">
-    Pliki cookies
+    {consent.title}
   </h2>
   <p class="consent-text">
-    Chcemy wiedzieć, jak korzystasz ze strony, żeby ją ulepszać. Za&nbsp;Twoją zgodą użyjemy do tego
-    analitycznych plików cookies. Szczegóły znajdziesz w&nbsp;
+    {consent.text}
     <a href={routes.privacy} class="prose-link">
-      polityce prywatności
+      {consent.link}
     </a>
-    .
+    {consent.after}
   </p>
   <div class="consent-actions">
     <!-- Accept sits on the right. -->
     <Button type="button" variant="outline" size="sm" data-consent-choice="denied">
-      Odrzucam
+      {consent.deny}
     </Button>
     <Button type="button" variant="primary" size="sm" data-consent-choice="granted">
-      Akceptuję
+      {consent.accept}
     </Button>
   </div>
 </section>
@@ -57,7 +60,7 @@ import { routes } from '@/lib/routes';
   if (consent === null) open(null);
 
   // Capture phase on window runs before PostHog's own click listener, so a
-  // withdrawal takes effect before the "Odrzucam" click itself is recorded.
+  // withdrawal takes effect before the decline click itself is recorded.
   window.addEventListener(
     'click',
     (event) => {
